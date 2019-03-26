@@ -28,6 +28,7 @@ Pod::Spec.new do |s|
   s.social_media_url   = "http://twitter.com/marmelroy"
 
   s.ios.deployment_target = '8.0'
+  s.swift_version = '5.0'
   s.requires_arc = true
 
   s.source_files = "PeekPop"
