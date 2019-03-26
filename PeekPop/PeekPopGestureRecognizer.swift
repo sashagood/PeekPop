@@ -5,7 +5,6 @@
 //  Created by Roy Marmelstein on 06/03/2016.
 //  Copyright © 2016 Roy Marmelstein. All rights reserved.
 //
-
 import UIKit.UIGestureRecognizerSubclass
 
 class PeekPopGestureRecognizer: UIGestureRecognizer
@@ -65,7 +64,7 @@ class PeekPopGestureRecognizer: UIGestureRecognizer
         }
     }
     
-    func delayedFirstTouch(_ touch: UITouch) {
+    @objc func delayedFirstTouch(_ touch: UITouch) {
         if isTouchValid(touch) {
             self.state = .began
             if let context = context {
@@ -120,10 +119,10 @@ class PeekPopGestureRecognizer: UIGestureRecognizer
     func updateProgress() {
         displayLink?.invalidate()
         displayLink = CADisplayLink(target: self, selector: #selector(animateToTargetProgress))
-        displayLink?.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
+        displayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
     }
     
-    func animateToTargetProgress() {
+    @objc func animateToTargetProgress() {
         if progress < targetProgress {
             progress = min(progress + interpolationSpeed, targetProgress)
             if progress >= targetProgress {

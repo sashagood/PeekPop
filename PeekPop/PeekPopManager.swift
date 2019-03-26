@@ -18,7 +18,7 @@ class PeekPopManager {
     fileprivate var peekPopView: PeekPopView?
     fileprivate lazy var peekPopWindow: UIWindow = {
         let window = UIWindow(frame: UIScreen.main.bounds)
-        window.windowLevel = UIWindowLevelAlert
+        window.windowLevel = UIWindow.Level.alert
         window.rootViewController = UIViewController()
         return window
     }()

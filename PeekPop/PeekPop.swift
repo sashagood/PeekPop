@@ -74,7 +74,7 @@ open class PreviewingContext {
     /// Previewing delegate
     open weak var delegate: PeekPopPreviewingDelegate?
     /// Source view
-    open let sourceView: UIView
+    public let sourceView: UIView
     /// Source rect
     open var sourceRect: CGRect
     
