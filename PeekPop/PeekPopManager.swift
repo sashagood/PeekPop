@@ -20,6 +20,7 @@ class PeekPopManager {
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.windowLevel = UIWindow.Level.alert
         window.rootViewController = UIViewController()
+        window.rootViewController?.view.backgroundColor = .white
         return window
     }()
 
@@ -47,10 +48,12 @@ class PeekPopManager {
             peekPopView?.blurredScreenshots = self.generateBlurredScreenshots(viewControllerScreenshot)
         }
         
+        peekPopView?.sourceViewControllerRect = viewController.view.convert(viewController.view.bounds, to: UIApplication.shared.keyWindow!)
+        
         // Take source view screenshot
         let rect = viewController.view.convert(context.sourceRect, from: context.sourceView)
         peekPopView?.sourceViewScreenshot = viewController.view.screenshotView(true, rect: rect)
-        peekPopView?.sourceViewRect = viewController.view.convert(rect, to: nil)
+        peekPopView?.sourceViewRect = viewController.view.convert(rect, to: peekPopWindow)
 
         // Take target view controller screenshot
         targetVC.view.frame = viewController.view.bounds
@@ -83,12 +86,12 @@ class PeekPopManager {
         peekPopWindow.isHidden = false
         peekPopWindow.makeKeyAndVisible()
         
+        peekPopView?.frame = UIScreen.main.bounds
+        peekPopView?.didAppear()
+        
         if let peekPopView = peekPopView {
             peekPopWindow.addSubview(peekPopView)
         }
-        
-        peekPopView?.frame = UIScreen.main.bounds
-        peekPopView?.didAppear()
         
         UIView.animate(withDuration: 0.2, animations: { () -> Void in
             self.peekPopWindow.alpha = 1.0

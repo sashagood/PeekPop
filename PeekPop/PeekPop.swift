@@ -39,12 +39,11 @@ open class PeekPop: NSObject {
     open func registerForPreviewingWithDelegate(_ delegate: PeekPopPreviewingDelegate, sourceView: UIView) -> PreviewingContext {
         let previewing = PreviewingContext(delegate: delegate, sourceView: sourceView)
         previewingContexts.append(previewing)
-        
         // If force touch is available, use Apple's implementation. Otherwise, use PeekPop's.
         if isForceTouchCapable() {
-            let delegate = ForceTouchDelegate(delegate: delegate)
-            delegate.registerFor3DTouch(sourceView, viewController: viewController)
-            forceTouchDelegate = delegate
+            let touchDelegate = ForceTouchDelegate(delegate: delegate)
+            touchDelegate.registerFor3DTouch(sourceView, viewController: viewController)
+            forceTouchDelegate = touchDelegate
         }
         else {
             let gestureRecognizer = PeekPopGestureRecognizer(peekPop: self)
@@ -55,7 +54,6 @@ open class PeekPop: NSObject {
             sourceView.addGestureRecognizer(gestureRecognizer)
             peekPopGestureRecognizer = gestureRecognizer
         }
-        
         return previewing
     }
         

@@ -20,6 +20,8 @@ class PeekPopView: UIView {
     var sourceToCenterYDelta: CGFloat = 0.0
     var sourceToTargetWidthDelta: CGFloat = 0.0
     var sourceToTargetHeightDelta: CGFloat = 0.0
+    
+    var sourceViewControllerRect: CGRect = .zero
 
     //MARK: Screenshots
     
@@ -77,9 +79,9 @@ class PeekPopView: UIView {
     }
     
     func didAppear() {
-        blurredBaseImageView.frame = self.bounds
-        blurredImageViewFirst.frame = self.bounds
-        blurredImageViewSecond.frame = self.bounds
+        blurredBaseImageView.frame = sourceViewControllerRect
+        blurredImageViewFirst.frame = sourceViewControllerRect
+        blurredImageViewSecond.frame = sourceViewControllerRect
         overlayView.frame = self.bounds
         
         targetPreviewView.frame.size = sourceViewRect.size
